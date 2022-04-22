@@ -1,0 +1,16 @@
+{
+    "name": "YourPackage.Samples",
+    "rootNamespace": "YourPackage.Samples",
+    "references": [
+        "GUID:2c7a2e17697c53543aba4c90afdfb65e"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

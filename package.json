@@ -1,0 +1,25 @@
+{
+  "name": "com.your-company.your-package",
+  "version": "0.0.1",
+  "displayName": "The user-friendly name displayed",
+  "description": "This is the description shown in the Unity Package Manager.",
+  "unity": "2020.3",
+  "unityRelease": "29f1",
+  "license": "AGPL-3.0-or-later",
+  "author": {
+    "name": "Your name",
+    "url": "https://www.dummy.com"
+  },
+  "keywords": [
+
+  ],
+  "type": "tool",
+  "hideInEditor": false,
+  "samples": [
+    {
+      "displayName": "Example scene name",
+      "description": "Description for the example scene that is shown in the Unity package manager.",
+      "path": "Samples~/Example-Scene"
+    }
+  ]
+}

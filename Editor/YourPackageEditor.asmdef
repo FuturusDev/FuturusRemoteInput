@@ -1,0 +1,18 @@
+{
+    "name": "YourPackageEditor",
+    "rootNamespace": "YourPackageEditor",
+    "references": [
+        "GUID:2c7a2e17697c53543aba4c90afdfb65e"
+    ],
+    "includePlatforms": [
+        "Editor"
+    ],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}
