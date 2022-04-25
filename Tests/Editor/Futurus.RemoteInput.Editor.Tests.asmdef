@@ -1,12 +1,14 @@
 {
-    "name": "YourPackage.Tests",
-    "rootNamespace": "YourPackage.Tests",
+    "name": "Futurus.RemoteInput.Editor.Tests",
+    "rootNamespace": "",
     "references": [
         "UnityEngine.TestRunner",
         "UnityEditor.TestRunner",
-        "YourPackage"
+        "Futurus.RemoteInput.Editor"
     ],
-    "includePlatforms": [],
+    "includePlatforms": [
+        "Editor"
+    ],
     "excludePlatforms": [],
     "allowUnsafeCode": false,
     "overrideReferences": true,
