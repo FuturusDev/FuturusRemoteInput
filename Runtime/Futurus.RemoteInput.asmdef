@@ -1,9 +1,7 @@
 {
     "name": "Futurus.RemoteInput",
     "rootNamespace": "",
-    "references": [
-        "GUID:47b6319cb9b050045a86af1b12c73b78"
-    ],
+    "references": [],
     "includePlatforms": [],
     "excludePlatforms": [],
     "allowUnsafeCode": false,

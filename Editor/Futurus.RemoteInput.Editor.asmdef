@@ -1,7 +1,9 @@
 {
     "name": "Futurus.RemoteInput.Editor",
-    "rootNamespace": "YourPackageEditor",
-    "references": [],
+    "rootNamespace": "",
+    "references": [
+        "Futurus.RemoteInput"
+    ],
     "includePlatforms": [
         "Editor"
     ],

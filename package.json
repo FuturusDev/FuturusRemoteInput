@@ -1,6 +1,6 @@
 {
   "name": "com.futurus.remoteinput",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "displayName": "Futurus Remote Input",
   "description": "A Unity Package for interacting world-space UI from a world-space remote, by Futurus",
   "unity": "2020.3",
@@ -10,17 +10,9 @@
     "email": "devs@futurus.com"
   },
   "keywords": [
-    "UI", "Unity UI", "input"
+    "UI",
+    "Unity UI",
+    "input"
   ],
-  "hideInEditor": false,
-  "samples": [
-    {
-      "displayName": "Example scene name",
-      "description": "Description for the example scene that is shown in the Unity package manager.",
-      "path": "Samples~/Example-Scene"
-    }
-  ],
-  "dependencies": {
-    "com.futurus.standard": "git+ssh://git@github.com/FuturusDev/futurusstandard.git#v0.0.11"
-  }
+  "hideInEditor": false
 }
