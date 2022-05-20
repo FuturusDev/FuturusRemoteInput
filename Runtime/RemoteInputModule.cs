@@ -67,7 +67,7 @@ namespace Futurus.RemoteInput
             // 0n linear search, bad make better later
             foreach (var eventData in _remoteEventDataSet)
             {
-                if (provider == eventData.Remote)
+                if (provider == eventData.Provider)
                     return eventData;
             }
             var newData = new RemoteInputEventData(provider, eventSystem);
@@ -206,7 +206,7 @@ namespace Futurus.RemoteInput
                 eventData.pointerDrag = null;
             }
 
-            eventData.Remote.SelectDelta = ButtonDeltaState.NoChange;
+            eventData.Provider.SelectDelta = ButtonDeltaState.NoChange;
         }
 
         void ProcessMouseMovement(PointerEventData eventData)

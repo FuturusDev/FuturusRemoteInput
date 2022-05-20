@@ -11,7 +11,7 @@ namespace Futurus.RemoteInput
 
         IRemoteInputProvider _provider = null;
 
-        public IRemoteInputProvider Remote => _provider;
+        public IRemoteInputProvider Provider => _provider;
         public bool Select { get; set; }
         public ButtonDeltaState SelectDelta { get; set; }
         public Vector3 RemotePosition { get; set; }
