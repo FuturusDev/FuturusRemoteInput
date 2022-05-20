@@ -10,7 +10,7 @@ namespace Futurus.RemoteInput
         public static readonly HashSet<RemoteInputRaycaster> AllRaycasters = new HashSet<RemoteInputRaycaster>();
         public static System.Action OnRaycastersChanged;
 
-        private struct RaycastHitData
+        protected struct RaycastHitData
         {
             public RaycastHitData(Graphic graphic, Vector3 worldHitPosition, Vector2 screenPosition, float distance)
             {
@@ -32,14 +32,14 @@ namespace Futurus.RemoteInput
         #endregion
 
         #region Public
-        public bool CanRaycast => _canvas != null && _canvas.isActiveAndEnabled;
+        public virtual bool CanRaycast => _canvas != null && _canvas.isActiveAndEnabled;
         public override Camera eventCamera => _canvas?.worldCamera != null ? _canvas.worldCamera : Camera.main;
         public override void Raycast(PointerEventData eventData, List<RaycastResult> resultAppendList)
         {
             if (eventData is RemoteInputEventData trackedEventData)
                 PerformRaycast(trackedEventData, resultAppendList);
         }
-        public void Raycast(RemoteInputEventData eventData, List<RaycastResult> resultAppendList)
+        public virtual void Raycast(RemoteInputEventData eventData, List<RaycastResult> resultAppendList)
         {
             PerformRaycast(eventData, resultAppendList);
         }
@@ -66,7 +66,7 @@ namespace Futurus.RemoteInput
         #endregion
 
         #region Internal
-        void PerformRaycast(RemoteInputEventData eventData, List<RaycastResult> resultAppendList)
+        protected virtual void PerformRaycast(RemoteInputEventData eventData, List<RaycastResult> resultAppendList)
         {
             if (_canvas == null || eventCamera == null)
                 return;
