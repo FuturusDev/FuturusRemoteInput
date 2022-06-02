@@ -10,18 +10,16 @@ namespace Futurus.RemoteInput
         static readonly Comparison<RaycastResult> RaycastCompare = RaycastComparer.Compare;
 
         #region Inspector
-        [SerializeField]
         [Tooltip("Scales the EventSystem.pixelDragThreshold to make selection easier.")]
-        float dragThresholdMultiplier = 1.4f;
+        [SerializeField] float dragThresholdMultiplier = 1.4f;
 
-        [SerializeField]
         [Tooltip("The maximum time (in seconds) between two mouse presses for it to be consecutive click.")]
-        float _clickSpeed = 0.3f;
+        [SerializeField] float _clickSpeed = 0.3f;
         #endregion
 
         #region Runtime
         readonly HashSet<IRemoteInputProvider> _inputProviderSet = new HashSet<IRemoteInputProvider>();
-        readonly HashSet<RemoteInputEventData> _remoteEventDataSet = new HashSet<RemoteInputEventData>();
+        readonly Dictionary<IRemoteInputProvider, RemoteInputEventData> _remoteEventDataSet = new Dictionary<IRemoteInputProvider, RemoteInputEventData>();
         #endregion
 
         #region Public
@@ -64,15 +62,12 @@ namespace Futurus.RemoteInput
         #region Internal
         RemoteInputEventData GetOrCreateRemoteEventData(IRemoteInputProvider provider)
         {
-            // 0n linear search, bad make better later
-            foreach (var eventData in _remoteEventDataSet)
+            if (!_remoteEventDataSet.TryGetValue(provider, out var eventData))
             {
-                if (provider == eventData.Provider)
-                    return eventData;
+                eventData = new RemoteInputEventData(provider, eventSystem);
+                _remoteEventDataSet.Add(provider, eventData);
             }
-            var newData = new RemoteInputEventData(provider, eventSystem);
-            _remoteEventDataSet.Add(newData);
-            return newData;
+            return eventData;
         }
         void RaycastAllRemoteRaycasters(RemoteInputEventData eventData, List<RaycastResult> raycastResults)
         {

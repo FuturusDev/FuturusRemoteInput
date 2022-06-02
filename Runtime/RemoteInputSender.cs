@@ -71,7 +71,9 @@ namespace Futurus.RemoteInput
         {
             _cachedRemoteInputModule?.Deregister(this);
         }
-        protected virtual void Update()
+        // Using Late Update because if another component modifies SelectDown in Update
+        // Order of Operations can create bugs. Update order is inconsistent
+        protected virtual void LateUpdate()
         {
             if (!ValidateProvider())
                 return;

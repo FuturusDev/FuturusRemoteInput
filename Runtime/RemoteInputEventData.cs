@@ -38,7 +38,6 @@ namespace Futurus.RemoteInput
             CheckOcclusion = _provider.CheckOcclusion;
             MaxDistance = _provider.MaxDistance;
             BlockingOcclusionMask = _provider.BlockingOcclusionMask;
-            base.Reset();
         }
 
         /// <summary>
