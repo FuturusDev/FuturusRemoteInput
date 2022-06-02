@@ -14,5 +14,12 @@
     "Unity UI",
     "input"
   ],
-  "hideInEditor": false
+  "hideInEditor": false,
+  "samples": [
+    {
+      "displayName": "Demo",
+      "description": "A demo setup of RemoteInput with a small world-space remote",
+      "path": "Samples~/Demo-Sample"
+    }
+  ]
 }
