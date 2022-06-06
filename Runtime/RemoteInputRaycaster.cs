@@ -114,7 +114,7 @@ namespace Futurus.RemoteInput
 
                         worldPosition = hitData.worldHitPosition,
                         screenPosition = hitData.screenPosition,
-                        worldNormal = physicsRaycastNormal != Vector3.zero ? physicsRaycastNormal : go.transform.eulerAngles
+                        worldNormal = physicsRaycastNormal != Vector3.zero ? physicsRaycastNormal : -_canvas.transform.forward,
                     };
                     resultAppendList.Add(castResult);
                 }
