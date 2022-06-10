@@ -151,11 +151,7 @@ namespace Futurus.RemoteInput
             if (result.isValid)
             {
                 _endpoint = result.worldPosition;
-                // result.worldNormal doesn't work properly, seems to always have the normal face directly up
-                // instead, we calculate the normal via the inverse of the forward vector on what we hit. Unity UI elements
-                // by default face away from the user, so we use that assumption to find the true "normal"
-                // If you use a curved UI canvas this likely will not work 
-                _endpointNormal = result.gameObject.transform.forward * -1;
+                _endpointNormal = result.worldNormal;
             }
             else /// not raycast hit
             {
@@ -165,7 +161,7 @@ namespace Futurus.RemoteInput
                     return;
                 }
                 _endpoint = transform.position + transform.forward * _maxLength;
-                _endpointNormal = (transform.position - _endpoint).normalized;
+                // _endpointNormal = (transform.position - _endpoint).normalized; // no need to calculate as its not drawn
             }
             DrawLine(true);
             _points[0] = transform.position;
@@ -180,7 +176,7 @@ namespace Futurus.RemoteInput
             if (_cursorMesh != null && _cursorMat != null)
             {
                 _cursorMat.color = _gradient.Evaluate(1);
-                var matrix = Matrix4x4.TRS(_points[1], Quaternion.Euler(_endpointNormal), Vector3.one * _cursorScale);
+                var matrix = Matrix4x4.TRS(_points[1], Quaternion.LookRotation(_endpointNormal), Vector3.one * _cursorScale);
                 Graphics.DrawMesh(_cursorMesh, matrix, _cursorMat, 0);
             }
         }
