@@ -8,11 +8,12 @@ namespace Futurus.RemoteInput
         const float MinLineWidth = 0.0001f;
 
         #region Inspector
-        [SerializeField] protected float _maxLength = 1000f;
+        [SerializeField] protected float _maxLength = 100f;
         [SerializeField] protected bool _occlude;
         [SerializeField] protected LayerMask _occludeMask;
 
         [Header("Presentation")]
+        [SerializeField] protected bool _lineRendererAlwaysOn = false;
         [SerializeField] protected LineRenderer _lineRenderer = null;
         [SerializeField, Min(MinLineWidth)] protected float _lineWidth = 0.002f;
         [SerializeField] protected AnimationCurve _widthCurve = AnimationCurve.Linear(0f, 1f, 1f, 0f);
@@ -71,6 +72,7 @@ namespace Futurus.RemoteInput
         }
         protected virtual void OnDisable()
         {
+            DrawLine(false);
             _cachedRemoteInputModule?.Deregister(this);
         }
         // Using Late Update because if another component modifies SelectDown in Update
@@ -82,7 +84,7 @@ namespace Futurus.RemoteInput
             _cachedEventData = _cachedRemoteInputModule.GetRemoteInputEventData(this);
             UpdateLine(_cachedEventData.LastRaycastResult);
             _cachedEventData.UpdateFromRemote();
-                UpdatePresentation();
+            DrawCursor();
         }
         protected virtual void OnDrawGizmos()
         {
@@ -155,27 +157,37 @@ namespace Futurus.RemoteInput
                 // If you use a curved UI canvas this likely will not work 
                 _endpointNormal = result.gameObject.transform.forward * -1;
             }
-            else
+            else /// not raycast hit
             {
+                if (!_lineRendererAlwaysOn)
+                {
+                    DrawLine(false);
+                    return;
+                }
                 _endpoint = transform.position + transform.forward * _maxLength;
                 _endpointNormal = (transform.position - _endpoint).normalized;
             }
+            DrawLine(true);
             _points[0] = transform.position;
             _points[_points.Length - 1] = _endpoint;
+            _lineRenderer.SetPositions(_points);
         }
-        void UpdatePresentation()
+        void DrawCursor()
         {
-            _lineRenderer.enabled = ValidRaycastHit;
             if (!ValidRaycastHit)
                 return;
 
-            _lineRenderer.SetPositions(_points);
             if (_cursorMesh != null && _cursorMat != null)
             {
                 _cursorMat.color = _gradient.Evaluate(1);
                 var matrix = Matrix4x4.TRS(_points[1], Quaternion.Euler(_endpointNormal), Vector3.one * _cursorScale);
                 Graphics.DrawMesh(_cursorMesh, matrix, _cursorMat, 0);
             }
+        }
+        void DrawLine(bool toEnable)
+        {
+            if (_lineRenderer.enabled != toEnable)
+                _lineRenderer.enabled = toEnable;
         }
         #endregion
     }
