@@ -52,6 +52,7 @@ namespace Futurus.RemoteInput
                 }
             }
         }
+        public bool Validated { get; protected set; }
 
         /// <summary>
         /// Toggles whether this RemoteInputProvider is selecting 
@@ -66,6 +67,7 @@ namespace Futurus.RemoteInput
         {
             ValidateProvider();
             ValidatePresentation();
+            _cachedRemoteInputModule?.Register(this);
         }
         protected virtual void OnDisable()
         {
@@ -80,7 +82,6 @@ namespace Futurus.RemoteInput
             _cachedEventData = _cachedRemoteInputModule.GetRemoteInputEventData(this);
             UpdateLine(_cachedEventData.LastRaycastResult);
             _cachedEventData.UpdateFromRemote();
-            if (ValidatePresentation())
                 UpdatePresentation();
         }
         protected virtual void OnDrawGizmos()
@@ -110,9 +111,11 @@ namespace Futurus.RemoteInput
         #region Internal
         bool ValidateProvider()
         {
+            if (Validated) return true;
             _cachedRemoteInputModule = (_cachedRemoteInputModule != null) ? _cachedRemoteInputModule : EventSystem.current.currentInputModule as RemoteInputModule;
             _cachedRemoteInputModule?.SetRegistration(this, true);
-            return _cachedRemoteInputModule != null;
+            Validated = _cachedRemoteInputModule != null;
+            return Validated;
         }
         bool ValidatePresentation()
         {
