@@ -8,30 +8,32 @@ namespace Futurus.RemoteInput
         const float MinLineWidth = 0.0001f;
 
         #region Inspector
+        [Header("Raycaster")]
         [SerializeField] protected float _maxLength = 100f;
         [SerializeField] protected bool _occlude;
         [SerializeField] protected LayerMask _occludeMask;
 
-        [Header("Presentation")]
+        [Header("Presentation - Line")]
         [SerializeField] protected bool _lineRendererAlwaysOn = false;
         [SerializeField] protected LineRenderer _lineRenderer = null;
         [SerializeField, Min(MinLineWidth)] protected float _lineWidth = 0.002f;
         [SerializeField] protected AnimationCurve _widthCurve = AnimationCurve.Linear(0f, 1f, 1f, 0f);
         [SerializeField] protected Gradient _gradient = new Gradient();
+        [Header("Presentation - Cursor")]
         [SerializeField] protected float _cursorScale = 0.1f;
         [SerializeField] protected Sprite _cursorSprite = null;
         #endregion
 
         #region Runtime
-        Mesh _cursorMesh = null;
-        Material _cursorMat = null;
-        bool _selectDown = false;
-        bool _hasHit = false;
-        Vector3 _endpoint = Vector3.zero;
-        Vector3 _endpointNormal = Vector3.zero;
-        Vector3[] _points = new Vector3[2];
-        RemoteInputModule _cachedRemoteInputModule;
-        RemoteInputEventData _cachedEventData;
+        protected Mesh _cursorMesh = null;
+        protected Material _cursorMat = null;
+        protected bool _selectDown = false;
+        protected bool _hasHit = false;
+        protected Vector3 _endpoint = Vector3.zero;
+        protected Vector3 _endpointNormal = Vector3.zero;
+        protected Vector3[] _points = new Vector3[2];
+        protected RemoteInputModule _cachedRemoteInputModule;
+        protected RemoteInputEventData _cachedEventData;
         #endregion
 
         #region Public
@@ -111,7 +113,7 @@ namespace Futurus.RemoteInput
         #endregion
 
         #region Internal
-        bool ValidateProvider()
+        protected bool ValidateProvider()
         {
             if (Validated) return true;
             _cachedRemoteInputModule = (_cachedRemoteInputModule != null) ? _cachedRemoteInputModule : EventSystem.current.currentInputModule as RemoteInputModule;
@@ -119,7 +121,7 @@ namespace Futurus.RemoteInput
             Validated = _cachedRemoteInputModule != null;
             return Validated;
         }
-        bool ValidatePresentation()
+        protected bool ValidatePresentation()
         {
             _lineRenderer = (_lineRenderer != null) ? _lineRenderer : GetComponent<LineRenderer>();
             if (_lineRenderer == null)
@@ -145,7 +147,7 @@ namespace Futurus.RemoteInput
             return true;
         }
         
-        void UpdateLine(RaycastResult result)
+        protected void UpdateLine(RaycastResult result)
         {
             _hasHit = result.isValid;
             if (result.isValid)
@@ -168,7 +170,7 @@ namespace Futurus.RemoteInput
             _points[_points.Length - 1] = _endpoint;
             _lineRenderer.SetPositions(_points);
         }
-        void DrawCursor()
+        protected void DrawCursor()
         {
             if (!ValidRaycastHit)
                 return;
@@ -180,7 +182,7 @@ namespace Futurus.RemoteInput
                 Graphics.DrawMesh(_cursorMesh, matrix, _cursorMat, 0);
             }
         }
-        void DrawLine(bool toEnable)
+        protected void DrawLine(bool toEnable)
         {
             if (_lineRenderer.enabled != toEnable)
                 _lineRenderer.enabled = toEnable;
