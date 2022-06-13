@@ -84,9 +84,11 @@ namespace Futurus.RemoteInput
             if (!ValidateProvider())
                 return;
             _cachedEventData = _cachedRemoteInputModule.GetRemoteInputEventData(this);
+            _hasHit = _cachedEventData.LastRaycastResult.isValid;
             UpdateLine(_cachedEventData.LastRaycastResult);
-            _cachedEventData.UpdateFromRemote();
             DrawCursor();
+
+            _cachedEventData.UpdateFromRemote();
         }
         protected virtual void OnDrawGizmos()
         {
@@ -149,7 +151,6 @@ namespace Futurus.RemoteInput
         
         protected void UpdateLine(RaycastResult result)
         {
-            _hasHit = result.isValid;
             if (result.isValid)
             {
                 _endpoint = result.worldPosition;
@@ -178,7 +179,7 @@ namespace Futurus.RemoteInput
             if (_cursorMesh != null && _cursorMat != null)
             {
                 _cursorMat.color = _gradient.Evaluate(1);
-                var matrix = Matrix4x4.TRS(_points[1], Quaternion.LookRotation(_endpointNormal), Vector3.one * _cursorScale);
+                var matrix = Matrix4x4.TRS(_endpoint, Quaternion.LookRotation(_endpointNormal), Vector3.one * _cursorScale);
                 Graphics.DrawMesh(_cursorMesh, matrix, _cursorMat, 0);
             }
         }
