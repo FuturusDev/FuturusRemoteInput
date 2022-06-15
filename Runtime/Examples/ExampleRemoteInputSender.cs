@@ -3,7 +3,7 @@ using UnityEngine.EventSystems;
 
 namespace Futurus.RemoteInput
 {
-    public class RemoteInputSender : MonoBehaviour, IRemoteInputProvider
+    public class ExampleRemoteInputSender : MonoBehaviour, IRemoteInputProvider
     {
         const float MinLineWidth = 0.0001f;
 
@@ -62,18 +62,18 @@ namespace Futurus.RemoteInput
         #endregion
 
         #region Unity
-        protected virtual void OnEnable()
+        void OnEnable()
         {
             ValidateProvider();
             ValidatePresentation();
         }
-        protected virtual void OnDisable()
+        void OnDisable()
         {
             _cachedRemoteInputModule?.Deregister(this);
         }
         // Using Late Update because if another component modifies SelectDown in Update
         // Order of Operations can create bugs. Update order is inconsistent
-        protected virtual void LateUpdate()
+        void LateUpdate()
         {
             if (!ValidateProvider())
                 return;
@@ -83,7 +83,7 @@ namespace Futurus.RemoteInput
             if (ValidatePresentation())
                 UpdatePresentation();
         }
-        protected virtual void OnDrawGizmos()
+        void OnDrawGizmos()
         {
             Gizmos.color = Color.white;
             Gizmos.DrawWireSphere(transform.position, 0.015f);
@@ -96,7 +96,7 @@ namespace Futurus.RemoteInput
             Gizmos.DrawLine(transform.position, _endpoint);
             Gizmos.DrawSphere(_endpoint, 0.01f);
         }
-        protected virtual void OnValidate()
+        void OnValidate()
         {
             if (_lineRenderer == null || Application.isPlaying)
                 return;

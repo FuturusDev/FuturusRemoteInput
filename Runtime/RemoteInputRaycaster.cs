@@ -46,14 +46,14 @@ namespace Futurus.RemoteInput
         #endregion
 
         #region Unity
-        protected override void Awake()
+        protected override void OnEnable()
         {
-            base.Awake();
+            base.OnEnable();
             AllRaycasters.Add(this);
         }
-        protected override void OnDestroy()
+        protected override void OnDisable()
         {
-            base.OnDestroy();
+            base.OnDisable();
             AllRaycasters.Remove(this);
         }
 #if UNITY_EDITOR
