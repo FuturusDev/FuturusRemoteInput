@@ -3,7 +3,7 @@ using UnityEngine.EventSystems;
 
 namespace Futurus.RemoteInput
 {
-    public class RemoteInputSender : MonoBehaviour, IRemoteInputProvider
+    public class ExampleRemoteInputSender : MonoBehaviour, IRemoteInputProvider
     {
         const float MinLineWidth = 0.0001f;
 
