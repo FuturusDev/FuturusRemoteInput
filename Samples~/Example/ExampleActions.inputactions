@@ -38,8 +38,8 @@
                 },
                 {
                     "name": "",
-                    "id": "68f1f2d4-7f16-4411-a6fb-7369c3dfe439",
-                    "path": "<Keyboard>/ctrl",
+                    "id": "daf832c7-4e23-4f61-9fe8-e287ad6e31e8",
+                    "path": "<Mouse>/leftButton",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
@@ -156,6 +156,17 @@
                     "action": "Move",
                     "isComposite": false,
                     "isPartOfComposite": true
+                },
+                {
+                    "name": "",
+                    "id": "b0ec106f-b864-4077-81bc-852c7f24e74c",
+                    "path": "<Mouse>/delta",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Move",
+                    "isComposite": false,
+                    "isPartOfComposite": false
                 }
             ]
         }
