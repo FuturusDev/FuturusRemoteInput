@@ -27,7 +27,7 @@ namespace Futurus.RemoteInput
         }
 
         /// <summary>
-        /// Resets this object back to defaults.
+        /// Sets all values in the EventData object to match the Provider
         /// </summary>
         public void UpdateFromRemote()
         {

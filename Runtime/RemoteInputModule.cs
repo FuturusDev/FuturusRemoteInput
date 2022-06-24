@@ -200,8 +200,7 @@ namespace Futurus.RemoteInput
                 eventData.dragging = false;
                 eventData.pointerDrag = null;
             }
-
-            eventData.Provider.SelectDelta = ButtonDeltaState.NoChange;
+            //eventData.SelectDelta = ButtonDeltaState.NoChange;
         }
 
         void ProcessMouseMovement(PointerEventData eventData)

@@ -27,7 +27,7 @@ namespace Futurus.RemoteInput
         /// <summary>
         /// Whether the state of the select option has changed this frame.
         /// </summary>
-        public ButtonDeltaState SelectDelta { get; set; }
+        public ButtonDeltaState SelectDelta { get; }
 
         /// <summary>
         /// Whether or not the model should be selecting UI at this moment. This is the equivalent of left mouse down for a mouse.
