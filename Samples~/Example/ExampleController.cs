@@ -1,34 +1,42 @@
-using Futurus.RemoteInput;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
 namespace Futurus.RemoteInput.Samples
 {
-    public class ExampleRemoteInputController : MonoBehaviour
+    public class ExampleController : MonoBehaviour
     {
+        public static ExampleActions ExampleActions;
+
         [SerializeField] float _speed = 100;
         [SerializeField] BoxCollider _boundsHolder;
-        [SerializeField] RemoteInputSender _sender;
+        [SerializeField] ExampleRemoteInputSender _sender;
 
+        Vector2 _currentMovementVector = Vector2.zero;
         Vector3 boundsMin => _boundsHolder.transform.TransformPoint(_boundsHolder.center + (-_boundsHolder.size * 0.5f));
         Vector3 boundsMax => _boundsHolder.transform.TransformPoint(_boundsHolder.center + (_boundsHolder.size * 0.5f));
+
+        void Start()
+        {
+            ExampleActions = new ExampleActions();
+            ExampleActions.Enable();
+            ExampleActions.Map.Click.performed += Click_Performed;
+            ExampleActions.Map.Click.canceled += Click_Performed;
+            ExampleActions.Map.Move.performed += Move_Performed;
+            ExampleActions.Map.Move.canceled += Move_Performed;
+        }
+        void Move_Performed(InputAction.CallbackContext obj) => _currentMovementVector = obj.ReadValue<Vector2>();
+        void Click_Performed(InputAction.CallbackContext obj) => _sender.SelectDown = obj.ReadValueAsButton();
 
         // Update is called once per frame
         void Update()
         {
-            _sender.SelectDown = Keyboard.current?.spaceKey.isPressed ?? false;
             var currentPosition = transform.position;
-            var xFactor = GetMovementFactor(
-                Keyboard.current?.rightArrowKey.isPressed ?? false,
-                Keyboard.current?.leftArrowKey.isPressed ?? false);
-            var yFactor = GetMovementFactor(
-                Keyboard.current?.upArrowKey.isPressed ?? false,
-                Keyboard.current?.downArrowKey.isPressed ?? false);
-            currentPosition += transform.right * xFactor * _speed * Time.deltaTime;
-            currentPosition += transform.up * yFactor * _speed * Time.deltaTime;
+            currentPosition += transform.right * _currentMovementVector.x * _speed * Time.deltaTime;
+            currentPosition += transform.up * _currentMovementVector.y * _speed * Time.deltaTime;
             if (PositionInsideBounds(currentPosition))
                 transform.position = currentPosition;
         }
+
         bool PositionInsideBounds(Vector3 pos)
         {
             var min = boundsMin;
@@ -41,12 +49,6 @@ namespace Futurus.RemoteInput.Samples
                 return false;
             return true;
         }
-        float GetMovementFactor(bool positive, bool negative)
-        {
-            if (positive == negative) // Either both or neither pressed
-                return 0f;
-            else
-                return (positive) ? 1f : -1f;
-        }
     }
 }
+
