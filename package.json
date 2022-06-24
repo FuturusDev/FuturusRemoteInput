@@ -1,6 +1,6 @@
 {
   "name": "com.futurus.remoteinput",
-  "version": "0.1.1",
+  "version": "0.2.0",
   "displayName": "Futurus Remote Input",
   "description": "A Unity Package for interacting world-space UI from a world-space remote, by Futurus",
   "unity": "2020.3",
@@ -17,9 +17,9 @@
   "hideInEditor": false,
   "samples": [
     {
-      "displayName": "Demo",
-      "description": "A demo setup of RemoteInput with a small world-space remote",
-      "path": "Samples~/Demo-Sample"
+      "displayName": "Example",
+      "description": "An example setup of RemoteInput with a small world-space remote. Requires Unity's InputSystem",
+      "path": "Samples~/Example"
     }
   ]
 }

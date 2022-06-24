@@ -80,6 +80,7 @@ namespace Futurus.RemoteInput
             _cachedEventData = _cachedRemoteInputModule.GetRemoteInputEventData(this);
             UpdateLine(_cachedEventData.LastRaycastResult);
             _cachedEventData.UpdateFromRemote();
+            SelectDelta = ButtonDeltaState.NoChange;
             if (ValidatePresentation())
                 UpdatePresentation();
         }
