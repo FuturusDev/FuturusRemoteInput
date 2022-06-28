@@ -1,6 +1,6 @@
 {
   "name": "com.futurus.remoteinput",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "displayName": "Futurus Remote Input",
   "description": "A Unity Package for interacting world-space UI from a world-space remote, by Futurus",
   "unity": "2020.3",
